@@ -1,0 +1,29 @@
+{
+  "name": "backendproject",
+  "version": "1.0.0",
+  "description": "This is my first backEndProject",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Heesu974/backEndProject.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Heesu974/backEndProject/issues"
+  },
+  "homepage": "https://github.com/Heesu974/backEndProject#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "nodemon": "^2.0.15"
+  }
+}
