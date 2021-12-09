@@ -5,39 +5,47 @@ const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
+app.use(logger)
 
 
 //GlobalRouter 생성
 const globalRouter = express.Router();
+
+const handleHome = (req, res) => {
+    res.send("Home");
+}
+
+globalRouter.get("/", handleHome);
+
 //UserRouter 생성
 const userRouter = express.Router();
+
+const handleEditUser = (req, res) => {
+    res.send("Edit User");
+}
+
+userRouter.get("/edit", handleEditUser);
+
 //VideoRouter 생성
 const VideoRouter = express.Router();
 
-//글로벌 라우터의 route URL 은 "/"
-//유저 라우터의 route URL은 "/users"
-//비디오 라우터의 route URL은 "/videos"
-
-
-
-const handleHome = (req, res) => {
-    return res.end();
-}
-const handleProtected = (req, res) => {
-    return res.send("Okay you can make it")
+const handleWatchVideo = (req, res) => {
+    res.send("Watch")
 }
 
-app.use(logger)
+VideoRouter.get("/watch", handleWatchVideo);
+
+app.use("/", globalRouter);
+app.use("/users", userRouter);
+app.use("/videos", VideoRouter);
+//여기의 라우터가 express한테 누군가가 "/videos"로 시작하는 url에 접근하면, 
+//videoRouter에 있는 controller를 찾게 하는 것이다.
 
 
-app.get("/", handleHome);
-app.get("/protected", handleProtected);
 
 
-const handleLogin = (req, res) => {
-    return res.send("<h1>you can do this, girl</h1>")
-}
-app.get("/login", handleLogin)
+
+
 
 
 
