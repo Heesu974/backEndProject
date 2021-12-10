@@ -1,5 +1,18 @@
 import express from "express";
 import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+//globalRouter를 default로 export 했기 때문에,
+//이름을 globalRouter를 globalRouter로 유지할 필요가 없다.
+//import global from "./routers/globalRouter";
+//이렇게 쓰고, 
+//app.use("/", global); 
+//이라고 할 수도 있다. 
+//node.js는 global가 globalRouter라는 것을 알기때문에
+//하지만, 헷갈리니까 똑같이 적는게 좋다.
+//참고로, 
+//import express from "express"/ 여기의 express도 default export이다.
+import userRouter from "./routers/userRouter";
+import VideoRouter from "./routers/videoRouter";
 
 const PORT = 4000;
 
@@ -7,53 +20,19 @@ const app = express();
 const logger = morgan("dev");
 app.use(logger)
 
-
-//GlobalRouter 생성
-const globalRouter = express.Router();
-
-const handleHome = (req, res) => {
-    res.send("Home");
-}
-
-globalRouter.get("/", handleHome);
-
-//UserRouter 생성
-const userRouter = express.Router();
-
-const handleEditUser = (req, res) => {
-    res.send("Edit User");
-}
-
-userRouter.get("/edit", handleEditUser);
-
-//VideoRouter 생성
-const VideoRouter = express.Router();
-
-const handleWatchVideo = (req, res) => {
-    res.send("Watch")
-}
-
-VideoRouter.get("/watch", handleWatchVideo);
-
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", VideoRouter);
-//여기의 라우터가 express한테 누군가가 "/videos"로 시작하는 url에 접근하면, 
-//videoRouter에 있는 controller를 찾게 하는 것이다.
-
-
-
-
-
-
-
-
+//user가 /videos로 시작하는 url에 들어가면,
+//express가 videoRouter 안으로 들어간다.
+//그 다음 videoRouter에서 나머지 url을 찾는다.
 
 //Listen External Access
 app.listen(4000, () => {
     console.log(`Server listening on port http://localhost:${PORT}`)
 });
 //Listen External Access
+
 
 
 
