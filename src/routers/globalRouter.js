@@ -1,13 +1,16 @@
 import express from "express";
-import { join } from "../controllers/userController";
-import { trending } from "../controllers/videoController";
-//default Export가 아닌 Export const인 경우에는 이름을 똑같이 써야한다. 
+import { join, login } from "../controllers/userController";
+import { trending, search } from "../controllers/videoController";
 
 
 const globalRouter = express.Router();
 
 globalRouter.get("/", trending);
 globalRouter.get("/join", join);
+globalRouter.get("/login", login);
+//when you login, WHO is loggin in ? USER. so Go to userController.js, make login controller.
+globalRouter.get("/search", search);
+//Searching for WHAT ?? Videos. so Go to videoController.js
 
 export default globalRouter;
 
