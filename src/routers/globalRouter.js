@@ -1,18 +1,14 @@
 import express from "express";
+import { join } from "../controllers/userController";
+import { trending } from "../controllers/videoController";
+//default Export가 아닌 Export const인 경우에는 이름을 똑같이 써야한다. 
+
 
 const globalRouter = express.Router();
 
-const handleHome = (req, res) => {
-    res.send("Home");
-}
-
-globalRouter.get("/", handleHome);
+globalRouter.get("/", trending);
+globalRouter.get("/join", join);
 
 export default globalRouter;
-//변수를 default로 export하고 있다.
-//>>const globalRouter = express.Router();
-//globalRouter를 export하는 것이다.
-//따라서 누구든 globalRouter.js를 import하면, 
-//globalRouter자체를 import하는 것이다.
 
 
