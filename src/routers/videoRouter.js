@@ -8,7 +8,4 @@ VideoRouter.get("/:id(\\d+)", see);
 VideoRouter.get("/:id(\\d+)/edit", edit);
 VideoRouter.get("/:id(\\d+)/delete", deleteVideo);
 
-
-
-
 export default VideoRouter;

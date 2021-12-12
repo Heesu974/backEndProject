@@ -11,6 +11,7 @@ const app = express();
 const logger = morgan("dev");
 
 app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
 //step 1. npm i pug
 //step 2. Tell Express we're going to use Pug as a view engine
 //이것으로 express는 html을 return하기 위해 pug를 사용할 것이다.
@@ -19,6 +20,7 @@ app.use(logger)
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", VideoRouter);
+
 
 
 //Listen External Access
