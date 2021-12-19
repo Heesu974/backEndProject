@@ -1,4 +1,11 @@
 extends base.pug
 
 block content 
-    h1 Edit Videos
+    h4 Change the title of video.
+    form(method="POST")
+        //- 기본 값으로 form의 method는 GET이다.
+        //- 우리는 이 데이터를 특정 url로 보내는 것을 원치 않기 때문에 action attribute는 지운다. 
+        //- 따라서 동일 url로 post request를 보내는 것이다.
+        //- 이 데이터가 back end로 전송되고 있다는 건 아는데, 어떻게 데이터를 받는지 모른다.
+        input(name="title", placeholder="New video title", value=pageTitle, required)
+        input(type="submit", value="Save") 
