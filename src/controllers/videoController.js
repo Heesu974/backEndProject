@@ -1,61 +1,34 @@
-const fakeUser = {
-    username: "heesu",
-    loggedIn: true,
-}
-const videos = [
-    {
-        title: "First video",
-        rating: 5,
-        comments: 2,
-        createdAt: "2 minutes ago",
-        views: 59,
-        id: 1,
-    },
-    {
-        title: "Second video",
-        rating: 5,
-        comments: 2,
-        createdAt: "2 minutes ago",
-        views: 50,
-        id: 2,
-    },
-    {
-        title: "Third video",
-        rating: 5,
-        comments: 2,
-        createdAt: "2 minutes ago",
-        views: 59,
-        id: 3,
-    }
-];
+import Video from "../models/video";
 
-export const trending = (req, res) => {
+export const home = (req, res) => {
+    console.log("Starting point")
+    Video.find({}, (error, videos) => {
+        console.log("Finished the code")
+    });
+    // {}: search term을 나타낸다.
+    // 위와 같이 비어 있으면, 모든 형태/형식을 찾는다는 것을 뜻한다.
+    // 즉, 모든 Video를 찾고 다음 단계로 callback을 전송하는 것이다.
+    // callback은 error와 document라는 signature를 갖는다.
 
-
-    return res.render("home", { pageTitle: "home", fakeUser: fakeUser, videos })
+    //먼저 mongoose는 Video.find({}, 이 부분을 database에서 불러올 것이다. 그리고 db가 response하면, mongoosesms error와 videos 값을 불러올 것이다.
+    console.log("Should be last one");
+    return res.render("home", { pageTitle: "home", videos: [] })
 };
-// trending에는 언젠가 video들이 들어갈 것이다.
+
 
 export const watch = (req, res) => {
-    const { id } = req.params; //선택된 파라미터 :id의 id를 받고
-    const video = videos[id - 1] // id에 해당하는 video를 찾고
-    // 컴퓨터 카운팅은 0부터인데, videos[0].id는 1부터 시작해서
-    return res.render("watch", { pageTitle: `Watching ${video.title}`, video });//Watch라는 템플릿을 render할 것이다.
+    const { id } = req.params;
+    return res.render("watch", { pageTitle: `Watching` });//Watch라는 템플릿을 render할 것이다.
     //이 코드로 인해 watch 템플릿에 video object가 생겼다.
 }
 
 export const editGet = (req, res) => {
     const { id } = req.params;
-    const video = videos[id - 1];
-    return res.render("edit", { pageTitle: `Editing ${video.title}`, video })
+    return res.render("edit", { pageTitle: `Editing` })
 }
 export const editPost = (req, res) => {
     const { id } = req.params;
     const { title } = req.body;
-    // 여기서 title 은 해당되는 input의 name 값이다. 
-    videos[id - 1].title = title;
-    //가짜 변수를 임시로 사용하기 위한 코드로, 중요하지 않다.
-
     return res.redirect(`/videos/${id}`);
     // >> videoRouter 를 통해  watch controller가 실행될 것을 알고 있음
 }
@@ -69,19 +42,6 @@ export const uploadGet = (req, res) => {
 
 export const uploadPost = (req, res) => {
     const { title } = req.body;
-    const newVideo = {
-        title: `${title}`,
-        // title,
-        // 이렇게 적어도 js는 이해할 것임. 하지만 나는 멍청하니까 그냥 알아보기 쉽게 할거임
-        rating: 0,
-        comments: 0,
-        createdAt: "just now",
-        views: 0,
-        id: `${videos.length + 1}`,
-    }
-    videos.push(newVideo)
-
-
 
     //Here we are going to add a video to the videosArray
     return res.redirect(`/`)
