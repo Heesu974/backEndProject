@@ -1,18 +1,17 @@
 import Video from "../models/video";
 
-export const home = (req, res) => {
-    console.log("Starting point")
-    Video.find({}, (error, videos) => {
-        console.log("Finished the code")
-    });
-    // {}: search term을 나타낸다.
-    // 위와 같이 비어 있으면, 모든 형태/형식을 찾는다는 것을 뜻한다.
-    // 즉, 모든 Video를 찾고 다음 단계로 callback을 전송하는 것이다.
-    // callback은 error와 document라는 signature를 갖는다.
 
-    //먼저 mongoose는 Video.find({}, 이 부분을 database에서 불러올 것이다. 그리고 db가 response하면, mongoosesms error와 videos 값을 불러올 것이다.
-    console.log("Should be last one");
-    return res.render("home", { pageTitle: "home", videos: [] })
+
+
+
+export const home = async (req, res) => {
+    try {
+        const videos = await Video.find({});
+        return res.render("home", { pageTitle: "home", videos: [] })
+    } catch {
+        return res.render("server-error");
+    }
+
 };
 
 
