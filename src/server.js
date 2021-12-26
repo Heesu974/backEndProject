@@ -1,6 +1,10 @@
 import "./db";
-//서버는 이 라인을 보는 순간, 이 파일을 import해줌으로써, 내 서버가 mongo에 연결되는 것이다.
-//db를 여기서 불러오지만, console창에서 볼 수 있 듯, Connected가 server listen보다 늦게 발생하는 것을 볼 수 있다. 이유는 db가 느리기 때문이다.
+// import video from "./models/video";
+// 이렇게 쓰지만, 이 Video를 당장 다른 곳에서 사용할 것은 아니기 때문에
+
+import "./models/video"
+//server.js에 database를 import해서 연결시킨 후 해당 연결이 성공적일 때, Video를 import해주는 것이다.
+//이 연결로, db는 mongoose와 연결되어 우리의 video model을 인지하게 되는 것이다.
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
