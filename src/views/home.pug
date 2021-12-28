@@ -5,12 +5,7 @@ include mixins/video
 
     
 block content
-    h1=pageTitle
-    nav 
-        ul 
-            li 
-                a(href="/videos/upload") Upload video
-    h2 Welcome! you will see my first backEnd project
+    
     each item in videos 
         +video(item)
        
