@@ -2,6 +2,10 @@ extends base.pug
 
 block content 
     form(method="post")
-        input(placeholder="write title of this video",name="title", type="text", required)
-        input(type="submit", value="Upload a video")
+ 
+        input(type="text", name="title", placeholder="Title", required)
+        input(type="text", name="description", placeholder="Description", required)
+        input(type="text", name="hashtags", placeholder="Hashtags, Seperated by comma", required)
+        input(type="submit", value="Upload Video")
          
+        //-  이 시점에서 router를 어떻게 구성했는가?
