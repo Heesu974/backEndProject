@@ -2,15 +2,11 @@ extends base.pug
 
 
 block content
-    //- h3 #{video.views} views
-    //- video.views가 1일때는 "view"로 추출해야한다.
-    //- 이것이 ternary operator를 연습하기에 아주 좋은 기회이다.
-    //- ternary 사전 의미: 셋으로 이루어지는, 세 겹의, etc.
-    h3 #{video.views} #{video.views === 1 ? "view" : "views"}
-    //- video.views 값이 1이면(condition)? true일 때 : false일 때
-
-
-    a(href=`${video.id}/edit`) Edit ##{video.id} video 
+    div 
+        p=video.description
+        small=video.createdAt 
+    
+    a(href=`${video.id}/edit`) Edit video &rarr;
     
   
 

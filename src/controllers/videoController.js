@@ -7,9 +7,12 @@ export const home = async (req, res) => {
 
 }
 
-export const watch = (req, res) => {
+export const watch = async (req, res) => {
     const { id } = req.params;
-    return res.render("watch", { pageTitle: `Watching` });//Watch라는 템플릿을 render할 것이다.
+
+    console.log(id)
+    const video = await Video.findById(id)
+    return res.render("watch", { pageTitle: video.title, video });//Watch라는 템플릿을 render할 것이다.
     //이 코드로 인해 watch 템플릿에 video object가 생겼다.
 }
 
