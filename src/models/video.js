@@ -6,11 +6,11 @@ import mongoose from "mongoose";
 const videoSchema = new mongoose.Schema({
     //비디오 형식 작성(실제 데이터 x)
     //데이터 타이틀: 데이터 타입
-    title: { type: String, required: true },
+    title: { type: String, required: true, trim: true, maxLength: 20 },
     // title: {type: String},과 똑값다.
-    description: { type: String, required: true },
+    description: { type: String, required: true, trim: true, minLength: 20 },
     createdAt: { type: Date, required: true, default: Date.now },
-    hashtags: [{ type: String }],
+    hashtags: [{ type: String, trim: true }],
     meta: {
         views: { type: Number, required: true, default: 0 },
         rating: { type: Number, required: true, default: 0 }

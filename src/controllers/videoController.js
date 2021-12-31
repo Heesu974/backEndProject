@@ -38,6 +38,9 @@ export const uploadPost = async (req, res) => {
             title: title,
             description: description,
             hashtags: hashtags.split(",").map(word => `#{word}`),
+            //지금도 완벽한 코드이지만, 나중에 video를 수정할 때 이슈가 생길 것이다.
+            // 수정할 때의 form은 업로드 form과 생긴건 똑같지만 다르다.
+            //수정할 때 새로운 hashtags의 string데이터를 받게 될텐데,
         })
         return res.redirect(`/`)
     } catch (error) {
