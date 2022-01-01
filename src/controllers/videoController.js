@@ -27,11 +27,21 @@ export const editGet = async (req, res) => {
     }
     return res.render("edit", { pageTitle: `Editing ${video.title}`, video });
 }
-export const editPost = (req, res) => {
+export const editPost = async (req, res) => {
     const { id } = req.params;
-    const { title } = req.body;
-    return res.redirect(`/videos/${id}`);
-    // >> videoRouter 를 통해  watch controller가 실행될 것을 알고 있음
+    const { title, description, hashtags } = req.body;
+    const video = await Video.exists({ _id: id });
+    if (!video) {
+        res.render("404", { pageTitle: `Video not found` })
+    }
+    await Video.findByIdAndUpdate(id, {
+        title: title,
+        description: description,
+        hashtags: hashtags
+            .split(',')
+            .map(word => word.startsWith('#') ? word : `#${word}`),
+    })
+    return res.redirect(`/videos/${id}`)
 }
 //video를 하나 추가하는 컨트롤러 생성
 // 유저가 form을 볼 수 있게 해야 하기 때문에 get에 대해 만드는 것이 우선이다.
@@ -47,7 +57,9 @@ export const uploadPost = async (req, res) => {
         await Video.create({
             title: title,
             description: description,
-            hashtags: hashtags.split(",").map(word => `#{word}`),
+            hashtags: hashtags
+                .split(",")
+                .map(word => word.startsWith('#') ? word : `#${word}`),
             //지금도 완벽한 코드이지만, 나중에 video를 수정할 때 이슈가 생길 것이다.
             // 수정할 때의 form은 업로드 form과 생긴건 똑같지만 다르다.
             //수정할 때 새로운 hashtags의 string데이터를 받게 될텐데,
@@ -55,7 +67,7 @@ export const uploadPost = async (req, res) => {
         return res.redirect(`/`)
     } catch (error) {
         console.log(error)
-        return res.render("upload", { pageTitle: "Uploading a video", errorMessage: error._message, });
+        return res.render("edit", { errorMessage: error._message });
     }
 }
 

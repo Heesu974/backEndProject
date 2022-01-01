@@ -1,11 +1,14 @@
 extends base.pug
 
 block content 
-    h4 Change the title of video.
+    if errorMessage     
+        span #{errorMessage}
+
+    h4 Update Video
     form(method="POST")
         input(name="title", placeholder="New video title", value=video.title, required)
-        input(type="text", placeholder="New video description", value=video.description, required)
-        input(type="text", placeholder="New hashtags", value=video.hashtags.join(), required)
+        input(type="text", name="description", placeholder="New video description", value=video.description, required)
+        input(type="text", name="hashtags", placeholder="New hashtags", value=video.hashtags.join(), required)
         //-여기서 video.hashtags는 array 형태로 그대로 보여준다.["#this","#is","#dkfja"] 이렇게.
         //- 그래서 join을 통해 array를 string으로 format해야 한다.
         input(type="submit", value="Save") 
