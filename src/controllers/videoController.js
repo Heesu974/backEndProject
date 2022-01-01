@@ -9,16 +9,23 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
     const { id } = req.params;
-
-    console.log(id)
     const video = await Video.findById(id)
-    return res.render("watch", { pageTitle: video.title, video });//Watch라는 템플릿을 render할 것이다.
-    //이 코드로 인해 watch 템플릿에 video object가 생겼다.
+    console.log(video)
+    if (!video) {
+        return res.render("404", { pageTitle: `Video not found` });
+    }
+    //에러가 나ㄴ 경우를 먼 처리
+    return res.render("watch", { pageTitle: video.title, video });
+
 }
 
-export const editGet = (req, res) => {
+export const editGet = async (req, res) => {
     const { id } = req.params;
-    return res.render("edit", { pageTitle: `Editing` })
+    const video = await Video.findById(id);
+    if (!video) {
+        return res.render("404", { pageTitle: `Video not found` });
+    }
+    return res.render("edit", { pageTitle: `Editing ${video.title}`, video });
 }
 export const editPost = (req, res) => {
     const { id } = req.params;
